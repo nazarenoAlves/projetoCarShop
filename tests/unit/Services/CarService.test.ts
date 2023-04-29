@@ -59,4 +59,25 @@ describe('Deve criar e retornar veiculos do DB', function () {
 
     findByIdStub.restore();
   });
+
+  it('Deve criar um novo carro', async function () {
+    const newCar: ICar = {
+      id: '2403201706',
+      model: 'HB20',
+      status: false,
+      year: 2022,
+      color: 'white',
+      seatsQty: 5,
+      doorsQty: 4,
+      buyValue: 80000,
+    };
+    const createStub = sinon.stub(CarODM.prototype, 'Create').resolves(newCar);
+
+    const carService = new CarService();
+
+    const result = await carService.createCar(newCar);
+
+    expect(result).to.deep.equal(newCar);
+    createStub.restore();
+  });
 });
