@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
 import CarService from '../../../src/Services/CarService';
+import CarODM from '../../../src/Models/CarODM';
 
 describe('Deve criar e retornar veiculos do DB', function () {
   it('deve retornar todos os veiculos', async function () {
@@ -37,5 +38,25 @@ describe('Deve criar e retornar veiculos do DB', function () {
     expect(result).to.deep.equal(cars);
 
     findAllStub.restore();
+  });
+
+  it('Retonar um carro por id', async function () {
+    const car:ICar = {
+      id: '634852326b35b59438fbea2f',
+      model: 'Marea',
+      year: 2002,
+      color: 'Black',
+      status: true,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+    };
+    const findByIdStub = sinon.stub(CarODM.prototype, 'findById').resolves(car);
+    const carService = new CarService();
+
+    const result = await carService.findById('634852326b35b59438fbea2f');
+    expect(result).to.deep.equal(result);
+
+    findByIdStub.restore();
   });
 });
