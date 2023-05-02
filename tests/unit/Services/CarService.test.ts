@@ -71,7 +71,7 @@ describe('Deve criar e retornar veiculos do DB', function () {
       doorsQty: 4,
       buyValue: 80000,
     };
-    const createStub = sinon.stub(CarODM.prototype, 'Create').resolves(newCar);
+    const createStub = sinon.stub(CarODM.prototype, 'create').resolves(newCar);
 
     const carService = new CarService();
 
@@ -79,5 +79,42 @@ describe('Deve criar e retornar veiculos do DB', function () {
 
     expect(result).to.deep.equal(newCar);
     createStub.restore();
+  });
+
+  it('Deve ser possível atualizar um carro', async function () {
+    const carToUpdate: ICar = {
+      id: '2403201706',
+      model: 'HB20',
+      status: false,
+      year: 2022,
+      color: 'white',
+      seatsQty: 5,
+      doorsQty: 4,
+      buyValue: 80000,
+    };
+
+    const carUpdate: ICar = {
+      id: '2403201706',
+      model: 'HB20',
+      status: false,
+      year: 2022,
+      color: 'white',
+      seatsQty: 5,
+      doorsQty: 4,
+      buyValue: 50000,
+    };
+
+    const findByIdStub = sinon
+      .stub(CarODM.prototype, 'findById').returns(Promise.resolve(carToUpdate));
+    const updateStub = sinon
+      .stub(CarODM.prototype, 'update').returns(Promise.resolve(carUpdate));
+
+    const carService = new CarService();
+    const result = await carService.updated('12345', carUpdate);
+
+    expect(result).to.deep.equal(carUpdate);
+
+    findByIdStub.restore();
+    updateStub.restore();
   });
 });
