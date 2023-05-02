@@ -37,9 +37,15 @@ class CarService {
   public async findById(id:string) {
     const carODM = new CarODM();
     const car = await carODM.findById(id);
-    console.log(car);
     
     if (!car) throw new HttpException(404, 'Car not found');
+    return car;
+  }
+
+  public async updated(id: string, carUpdate: ICar) {
+    const carODM = new CarODM();
+    const car = await carODM.updated(id, carUpdate);
+    if (car === null) throw new HttpException(404, 'Car not found');
     return car;
   }
 }

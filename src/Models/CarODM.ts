@@ -58,6 +58,11 @@ class CarODM {
     const car = await this.model.findOne({ _id: id }, { __v: false });
     return car as ICar;
   }
+
+  public async updated(id:string, carUpdate: ICar):Promise<ICar | null> {
+    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
+    return this.model.findByIdAndUpdate(id, carUpdate, { new: true });
+  }
 }
 
 export default CarODM;
