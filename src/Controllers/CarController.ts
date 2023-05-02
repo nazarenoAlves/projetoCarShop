@@ -29,7 +29,6 @@ class CarController {
   public async findAll() {
     try {
       const allCars = await this.service.findAll();
-      console.log(allCars);
       
       return this.res.status(200).json(allCars);
     } catch (error) {
