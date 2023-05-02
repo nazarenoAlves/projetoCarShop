@@ -24,7 +24,7 @@ class CarService {
 
   public async createCar(car:ICar) {
     const carODM = new CarODM();
-    const newCar = await carODM.Create(car);
+    const newCar = await carODM.create(car);
     
     return this.createCarDomain(newCar);
   }
@@ -44,7 +44,7 @@ class CarService {
 
   public async updated(id: string, carUpdate: ICar) {
     const carODM = new CarODM();
-    const car = await carODM.updated(id, carUpdate);
+    const car = await carODM.update(id, carUpdate);
     if (car === null) throw new HttpException(404, 'Car not found');
     return car;
   }
