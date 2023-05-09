@@ -1,6 +1,7 @@
 import Motorcycle from '../Domains/Motorcycle';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
+import { HttpException } from '../middleware/ErrorHandler';
 // import { HttpException } from '../middleware/ErrorHandler';
 
 class MotorcycleService {
@@ -27,6 +28,21 @@ class MotorcycleService {
     const newMotor = await motorODM.create(motocycle);
 
     return this.CreateMotocycleDomain(newMotor);
+  }
+
+  public async findAll(): Promise<IMotorcycle[]> {
+    const motorODM = new MotorcycleODM();
+    const motors = await motorODM.findAll();
+
+    return motors;
+  }
+
+  public async findById(id:string):Promise<IMotorcycle> {
+    const motorODM = new MotorcycleODM();
+    const motor = await motorODM.findById(id);
+    if (!motor) throw new HttpException(404, 'Motorcycle not found');
+
+    return motor as IMotorcycle;
   }
 }
 
