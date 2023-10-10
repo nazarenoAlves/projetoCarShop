@@ -80,11 +80,7 @@ GET /vehicles?year=2023
 Contribuições
 Contribuições são bem-vindas. Para enviar uma contribuição, basta criar um fork do repositório e enviar um pull request com as alterações.
 
-Autor
-Nazareno Alves
-
-Data
-10 de outubro de 2023
+Projeto realizado no curso de Desenvolvimento Web FullStack na Trybe
 
 Atualizações
 20 de outubro de 2023: Adicionado suporte para pesquisa por marca, modelo ou ano.
